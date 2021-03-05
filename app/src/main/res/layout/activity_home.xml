@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".view.home.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/foods_app"
+            android:textColor="@color/colorWhite"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpagerBanner"
+            android:layout_width="match_parent"
+            android:paddingRight="50dp"
+            android:clipToPadding="false"
+            android:layout_height="200dp"
+            android:layout_below="@id/tv_title" />
+
+        <include
+            android:id="@+id/shimmer_viewpager"
+            layout="@layout/shimmer_viewpager" />
+
+        <TextView
+            android:id="@+id/tv_meal_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewpagerBanner"
+            android:layout_margin="16dp"
+            android:text="@string/meal_categories"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_meal_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_meal_category" />
+
+        <include
+            android:id="@+id/ll_shimmer_recyclerview"
+            layout="@layout/shimmer_recyclerview" />
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FoodsApp</string>
+    <string name="foods_app">Foods App</string>
+    <string name="meal_categories">Meal Categories</string>
+    <string name="meal_name">Meal name</string>
+    <string name="category_name">Category name</string>
+</resources>
