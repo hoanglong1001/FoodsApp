@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,9 @@ import com.example.foodsapp.adapter.ViewPagerHomeAdapter;
 import com.example.foodsapp.model.Category;
 import com.example.foodsapp.model.Meal;
 import com.example.foodsapp.model.Meals;
+import com.example.foodsapp.view.category.CategoryActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,6 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity implements HomeView {
+
+    public static final String CATEGORIES = "categories";
+    public static final String POSITION = "position";
 
     @BindView(R.id.viewpagerBanner)
     ViewPager viewPagerBanner;
@@ -85,8 +91,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         recyclerViewMealAdapter.setOnItemClickedListener(new RecyclerViewMealAdapter.onItemClickedListener() {
             @Override
             public void onClicked(View view, int position) {
-                Toast.makeText(HomeActivity.this, "category item click", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra(CATEGORIES, (Serializable) categories);
+                intent.putExtra(POSITION, position);
+                startActivity(intent);
             }
         });
     }
