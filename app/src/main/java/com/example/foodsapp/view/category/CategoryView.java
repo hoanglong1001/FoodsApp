@@ -8,6 +8,6 @@ import java.util.List;
 public interface CategoryView {
     void showLoading();
     void hideLoading();
-    void setMealCategory(List<Category> categories);
+    void setMealCategory(List<Meal> meals);
     void onErrorLoading(String message);
 }

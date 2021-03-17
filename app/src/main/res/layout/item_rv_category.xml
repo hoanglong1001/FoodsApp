@@ -5,7 +5,7 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,17 +24,13 @@
             android:textSize="16sp"
             android:layout_below="@+id/imgMeal"
             android:textColor="@color/black"
+            android:gravity="center"
             android:padding="8dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <View
-            android:background="@drawable/image_light"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_width="70dp"
-            android:layout_height="70dp"/>
 
         <ImageView
             android:src="@drawable/ic_favorite_border"

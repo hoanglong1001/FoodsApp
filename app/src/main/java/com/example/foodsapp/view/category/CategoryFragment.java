@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -16,7 +17,10 @@ import android.widget.TextView;
 
 import com.example.foodsapp.R;
 import com.example.foodsapp.Utils;
+import com.example.foodsapp.adapter.RecyclerViewMealAdapter;
+import com.example.foodsapp.adapter.RecyclerViewMealCategoryAdapter;
 import com.example.foodsapp.model.Category;
+import com.example.foodsapp.model.Meal;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -28,7 +32,7 @@ import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_DES
 import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_IMG;
 import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_NAME;
 
-public class CategoryFragment extends Fragment implements CategoryView{
+public class CategoryFragment extends Fragment implements CategoryView, RecyclerViewMealCategoryAdapter.onItemClickListener {
 
     @BindView(R.id.imgCategory)
     ImageView imgCategory;
@@ -58,6 +62,9 @@ public class CategoryFragment extends Fragment implements CategoryView{
                     .into(imgCategory);
             Picasso.get().load(getArguments().getString(CATEGORY_IMG))
                     .into(imgCategoryBg);
+
+            CategoryPresenter presenter = new CategoryPresenter(this);
+            presenter.setMealCategory(getArguments().getString(CATEGORY_NAME));
         }
     }
 
@@ -72,12 +79,21 @@ public class CategoryFragment extends Fragment implements CategoryView{
     }
 
     @Override
-    public void setMealCategory(List<Category> categories) {
-
+    public void setMealCategory(List<Meal> meals) {
+        RecyclerViewMealCategoryAdapter adapter = new RecyclerViewMealCategoryAdapter(meals, getActivity(), this);
+        rvCategory.setLayoutManager(new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false));
+        rvCategory.setHasFixedSize(true);
+        rvCategory.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onErrorLoading(String message) {
         Utils.showDialogMessage(getContext(), "Error", message);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 }

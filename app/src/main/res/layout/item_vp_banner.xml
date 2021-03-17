@@ -24,12 +24,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/sample_image_meal" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_shadow" />
-
             <TextView
                 android:id="@+id/tv_banner"
                 android:layout_width="wrap_content"
