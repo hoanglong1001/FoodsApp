@@ -1,5 +1,7 @@
 package com.example.foodsapp.view.category;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.foodsapp.R;
@@ -27,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_DES;
 import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_IMG;
@@ -44,6 +48,9 @@ public class CategoryFragment extends Fragment implements CategoryView, Recycler
     RecyclerView rvCategory;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.rlCategory)
+    RelativeLayout rlCategory;
+    AlertDialog.Builder dialogInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +69,10 @@ public class CategoryFragment extends Fragment implements CategoryView, Recycler
                     .into(imgCategory);
             Picasso.get().load(getArguments().getString(CATEGORY_IMG))
                     .into(imgCategoryBg);
+            dialogInfo = new AlertDialog.Builder(getActivity())
+                    .setTitle(getArguments().getString(CATEGORY_NAME))
+                    .setMessage(getArguments().getString(CATEGORY_DES));
+            dialogInfo.setNegativeButton("CLOSE", ((dialog, which) -> dialog.dismiss()));
 
             CategoryPresenter presenter = new CategoryPresenter(this);
             presenter.setMealCategory(getArguments().getString(CATEGORY_NAME));
@@ -95,5 +106,10 @@ public class CategoryFragment extends Fragment implements CategoryView, Recycler
     @Override
     public void onItemClick(View view, int position) {
 
+    }
+
+    @OnClick(R.id.rlCategory)
+    public void onClick() {
+        dialogInfo.show();
     }
 }
