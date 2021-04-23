@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodsapp.R;
@@ -19,6 +20,8 @@ import com.example.foodsapp.model.Category;
 import com.example.foodsapp.model.Meal;
 import com.example.foodsapp.model.Meals;
 import com.example.foodsapp.view.category.CategoryActivity;
+import com.example.foodsapp.view.detail.DetailActivity;
+import com.example.foodsapp.view.detail.DetailPresenter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -33,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     public static final String CATEGORIES = "categories";
     public static final String POSITION = "position";
+    public static final String MEALNAME = "meal_name";
 
     @BindView(R.id.viewpagerBanner)
     ViewPager viewPagerBanner;
@@ -72,11 +76,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     public void setBanner(List<Meal> meals) {
         ViewPagerHomeAdapter viewPagerHomeAdapter = new ViewPagerHomeAdapter(meals, this);
         viewPagerBanner.setAdapter(viewPagerHomeAdapter);
+        viewPagerBanner.setPadding(20, 0, 100, 0);
         viewPagerHomeAdapter.notifyDataSetChanged();
         viewPagerHomeAdapter.setOnItemClickListener(new ViewPagerHomeAdapter.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(HomeActivity.this, "banner item click", Toast.LENGTH_SHORT).show();
+                TextView mealName = view.findViewById(R.id.tv_banner);
+                Intent intent = new Intent(HomeActivity.this, DetailActivity.class);
+                intent.putExtra(MEALNAME, mealName.getText().toString());
+                startActivity(intent);
             }
         });
     }

@@ -16,5 +16,9 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteDark">#DBDBDB</color>
     <color name="colorPrimaryLight">#CA7474</color>
-    <color name="colorBackground">#EDEDED</color>
+    <color name="colorBackground">#F4F7F7</color>
+    <color name="lightRed">#FFE1E1</color>
+    <color name="lightGreen">#D0FFDB</color>
+    <color name="darkRed">#EC2D2D</color>
+    <color name="darkGreen">#2A7E2F</color>
 </resources>

@@ -2,6 +2,7 @@ package com.example.foodsapp.view.category;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.example.foodsapp.adapter.RecyclerViewMealAdapter;
 import com.example.foodsapp.adapter.RecyclerViewMealCategoryAdapter;
 import com.example.foodsapp.model.Category;
 import com.example.foodsapp.model.Meal;
+import com.example.foodsapp.view.detail.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,8 +37,9 @@ import butterknife.OnClick;
 import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_DES;
 import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_IMG;
 import static com.example.foodsapp.adapter.ViewPagerCategoryAdapter.CATEGORY_NAME;
+import static com.example.foodsapp.view.home.HomeActivity.MEALNAME;
 
-public class CategoryFragment extends Fragment implements CategoryView, RecyclerViewMealCategoryAdapter.onItemClickListener {
+public class CategoryFragment extends Fragment implements CategoryView {
 
     @BindView(R.id.imgCategory)
     ImageView imgCategory;
@@ -50,6 +53,7 @@ public class CategoryFragment extends Fragment implements CategoryView, Recycler
     ProgressBar progressBar;
     @BindView(R.id.rlCategory)
     RelativeLayout rlCategory;
+
     AlertDialog.Builder dialogInfo;
 
     @Override
@@ -91,7 +95,14 @@ public class CategoryFragment extends Fragment implements CategoryView, Recycler
 
     @Override
     public void setMealCategory(List<Meal> meals) {
-        RecyclerViewMealCategoryAdapter adapter = new RecyclerViewMealCategoryAdapter(meals, getActivity(), this);
+        RecyclerViewMealCategoryAdapter adapter = new RecyclerViewMealCategoryAdapter(meals, getActivity(), new RecyclerViewMealCategoryAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra(MEALNAME, meals.get(position).getStrMeal());
+                startActivity(intent);
+            }
+        });
         rvCategory.setLayoutManager(new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false));
         rvCategory.setHasFixedSize(true);
         rvCategory.setAdapter(adapter);
@@ -101,11 +112,6 @@ public class CategoryFragment extends Fragment implements CategoryView, Recycler
     @Override
     public void onErrorLoading(String message) {
         Utils.showDialogMessage(getContext(), "Error", message);
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-
     }
 
     @OnClick(R.id.rlCategory)

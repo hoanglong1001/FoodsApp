@@ -29,7 +29,6 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpagerBanner"
             android:layout_width="match_parent"
-            android:paddingRight="50dp"
             android:clipToPadding="false"
             android:layout_height="200dp"
             android:layout_below="@id/tv_title" />
